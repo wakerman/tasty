@@ -1,0 +1,1 @@
+call mvn eclipse:eclipse package -Dmaven.test.skip -f pom.xml -e

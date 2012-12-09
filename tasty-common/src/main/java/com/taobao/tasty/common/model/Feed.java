@@ -1,0 +1,98 @@
+package com.taobao.tasty.common.model;
+
+/**
+ *  Feed实体
+ * @author nileader/nileader@gmail.com
+ */
+public class Feed {
+
+	public int getFeedId() {
+		return feedId;
+	}
+	public void setFeedId( int feedId ) {
+		this.feedId = feedId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId( int userId ) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName( String userName ) {
+		this.userName = userName;
+	}
+	public String getMessageContent() {
+		return messageContent;
+	}
+	public void setMessageContent( String messageContent ) {
+		this.messageContent = messageContent;
+	}
+	public String getGmtCreate() {
+		return gmtCreate;
+	}
+	public void setGmtCreate( String gmtCreate ) {
+		this.gmtCreate = gmtCreate;
+	}
+	public String getGmtModified() {
+		return gmtModified;
+	}
+	public void setGmtModified( String gmtModified ) {
+		this.gmtModified = gmtModified;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation( String location ) {
+		this.location = location;
+	}
+	public int getLikeNum() {
+		return likeNum;
+	}
+	public void setLikeNum( int likeNum ) {
+		this.likeNum = likeNum;
+	}
+	public int getCommentNum() {
+		return commentNum;
+	}
+	public void setCommentNum( int commentNum ) {
+		this.commentNum = commentNum;
+	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic( String pic ) {
+		this.pic = pic;
+	}
+	public int getIsRecommend() {
+		return isRecommend;
+	}
+	public void setIsRecommend( int isRecommend ) {
+		this.isRecommend = isRecommend;
+	}
+	
+	public String getUserIcon() {
+		return userIcon;
+	}
+	public void setUserIcon( String userIcon ) {
+		this.userIcon = userIcon;
+	}
+
+	private int feedId;
+	private int userId;
+	private String userName;
+	private String userIcon;
+	private String messageContent;
+	private String gmtCreate;
+	private String gmtModified;
+	private String location;
+	private int likeNum;
+	private int commentNum;
+	private String pic;
+	private int isRecommend;
+	
+	
+	
+}

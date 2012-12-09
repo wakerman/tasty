@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<data_type>xml</data_type>
+	<pie>
+		<x>300</x>
+		<y>150</y>
+		<radius>85</radius>
+		<height>8</height>
+		<angle>30</angle>
+		<link_target>_self</link_target>
+	</pie>
+
+	<animation>
+		<start_time>1</start_time>
+		<start_effect>strong</start_effect>
+		<pull_out_time>1</pull_out_time>
+		<pull_out_only_one>true</pull_out_only_one>
+	</animation>
+
+	<data_labels>
+		<max_width>100</max_width>
+		<show>
+        <![CDATA[{title}: {percents}%]]>
+		</show>
+		<show_lines></show_lines>
+		<line_color>#700000</line_color>
+		<avoid_overlapping>true</avoid_overlapping>
+		<hide_labels_percent>0.5</hide_labels_percent>
+	</data_labels>
+
+	<legend>
+		<x>10</x>
+		<y>300</y>
+		<width>580</width>
+		<border_alpha>20</border_alpha>
+		<spacing>5</spacing>
+		<margins>2</margins>
+		<align>center</align>
+	</legend>
+
+	<labels>
+		<label lid="1">
+			<x>10</x>
+			<y>5</y>
+			<width>200</width>
+			<align>center</align>
+			<text_color>F06524</text_color>
+			<text_size>12</text_size>
+			<text>                   
+			<![CDATA[该服务被以下应用调用，点击应用查看应用详情]]>
+			</text>
+		</label>
+	</labels>
+</settings>
