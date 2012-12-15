@@ -13,16 +13,17 @@ import org.apache.log4j.Logger;
 
 import com.taobao.tasty.common.constant.SqlTemplate;
 import com.taobao.tasty.common.model.Comment;
+
+import common.toolkit.java.entity.DateFormat;
 import common.toolkit.java.entity.db.DBConnectionResource;
 import common.toolkit.java.exception.ServiceException;
+import common.toolkit.java.util.DateUtil;
+import common.toolkit.java.util.ObjectUtil;
 import common.toolkit.java.util.StringUtil;
 import common.toolkit.java.util.db.DbcpUtil;
-
 /**
- * Tlog数据源管理
- * 
- * @author nileader nileader@gmail.com
- * @date Sep 17, 2012
+ * 评论相关接口
+ * @author nileader/nileader@gmail.com
  */
 public class CommentManager {
 
@@ -64,6 +65,49 @@ public class CommentManager {
 			}
 		}
 	}
+	
+	public boolean addComment( Comment comment ) throws ServiceException {
+		String insertSql = "";
+		try {
+			if ( ObjectUtil.isBlank( comment )
+					|| StringUtil.isBlank( comment.getFeedId()+"", comment.getUserId()+"", comment.getCommentContent() ) )
+				return false;
+			
+			Map<String, String> values = new HashMap<String, String>();
+			values.put( "feedId", comment.getFeedId()+"" );
+			values.put( "userId", comment.getUserId()+"" );
+			values.put( "commentContent", comment.getCommentContent() );
+			values.put( "gmtCreate", DateUtil.getNowTime( DateFormat.DateTime ) );
+			values.put( "gmtModified", DateUtil.getNowTime( DateFormat.DateTime ) );
+			
+			
+
+			insertSql = StringUtil.replacePlaceholder( SqlTemplate.ADD_COMMENT_LASTED, values );
+			int num = DbcpUtil.executeInsert( insertSql );
+			if ( 1 == num ) {
+				return true;
+			}
+			return false;
+		} catch ( Throwable e ) {
+			throw new ServiceException( "Error when insert into db, sql: " + insertSql + ", error: " + e.getMessage(), e.getCause() );
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private Comment convertResultSetToComment( ResultSet rs ) {
 

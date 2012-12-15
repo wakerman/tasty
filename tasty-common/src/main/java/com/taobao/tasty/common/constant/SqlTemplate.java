@@ -52,6 +52,11 @@ public class SqlTemplate {
 																										"ORDER BY c.gmt_modified DESC " + // 
 																										"LIMIT ${startOffSet}," + PAGE_SIZE_OF_COMMENT;
 	
+	/** 添加评论 */
+	public static final String ADD_COMMENT_LASTED 				= "INSERT INTO comment " +
+																													"(feed_id, user_id, comment_content, gmt_create, gmt_modified) " +
+																													"VALUES " +
+																													"(${feedId},${userId},'${commentContent}','${gmtCreate}','${gmtModified}')";
 	
 	
 }

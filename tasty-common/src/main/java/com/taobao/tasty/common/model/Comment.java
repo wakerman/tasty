@@ -14,6 +14,16 @@ public class Comment {
 	private String 	commentContent;
 	private String 	gmtCreate;
 	private String 	gmtModified;
+	
+	public Comment(){
+		
+	}
+	public Comment( int feedId, int userId, String commentContent ){
+		this.feedId					= feedId;
+		this.userId					= userId;
+		this.commentContent	= commentContent;
+	}
+	
 	public int getCommentId() {
 		return commentId;
 	}
