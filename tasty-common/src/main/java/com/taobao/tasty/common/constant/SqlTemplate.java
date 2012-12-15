@@ -44,6 +44,8 @@ public class SqlTemplate {
 	public static final String QUERY_COMMENT_LASTED 			= "SELECT c.comment_id," +
 																													"c.feed_id, " +
 																													"c.user_id, " +
+																													"c.target_user_id, " +
+																													"c.target_user_name, " +
 																													"um.user_name," +
 																													"c.comment_content," +
 																													"c.gmt_modified " +

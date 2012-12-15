@@ -10,6 +10,8 @@ public class Comment {
 	private int 		feedId;
 	private int 		userId;
 	private String 	userName;
+	private long 	targetUserId;
+	private String	targetUserName;
 	private String 	userIcon;
 	private String 	commentContent;
 	private String 	gmtCreate;
@@ -72,5 +74,16 @@ public class Comment {
 	public void setGmtModified( String gmtModified ) {
 		this.gmtModified = gmtModified;
 	}
-	
+	public long getTargetUserId() {
+		return targetUserId;
+	}
+	public void setTargetUserId( long targetUserId ) {
+		this.targetUserId = targetUserId;
+	}
+	public String getTargetUserName() {
+		return targetUserName;
+	}
+	public void setTargetUserName( String targetUserName ) {
+		this.targetUserName = targetUserName;
+	}
 }
