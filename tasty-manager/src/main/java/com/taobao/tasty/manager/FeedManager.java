@@ -71,7 +71,7 @@ public class FeedManager {
 		}
 		List<Feed> feedList = new ArrayList<Feed>();
 		Map<String,String> values = new HashMap<String, String>();
-		values.put( "pageNum", pageNum+"" );
+		values.put( "startOffSet", (pageNum* PAGE_SIZE_OF_FEED )+"" );
 		
 		ResultSet rs = null;
 		DBConnectionResource myResultSet = null;
