@@ -6,4 +6,5 @@
 
 	<bean id="feedManager" class="com.taobao.tasty.manager.FeedManager"  />
 	<bean id="commentManager" class="com.taobao.tasty.manager.CommentManager"  />
+	<bean id="messageManager" class="com.taobao.tasty.manager.impl.MsgManagerImpl" />
 </beans>
