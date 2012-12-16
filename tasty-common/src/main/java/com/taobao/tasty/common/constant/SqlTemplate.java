@@ -44,6 +44,8 @@ public class SqlTemplate {
 	public static final String QUERY_COMMENT_LASTED 			= "SELECT c.comment_id," +
 																													"c.feed_id, " +
 																													"c.user_id, " +
+																													"c.target_user_id, " +
+																													"c.target_user_name, " +
 																													"um.user_name," +
 																													"c.comment_content," +
 																													"c.gmt_modified " +
@@ -52,6 +54,11 @@ public class SqlTemplate {
 																										"ORDER BY c.gmt_modified DESC " + // 
 																										"LIMIT ${startOffSet}," + PAGE_SIZE_OF_COMMENT;
 	
+	/** 添加评论 */
+	public static final String ADD_COMMENT_LASTED 				= "INSERT INTO comment " +
+																													"(feed_id, user_id, comment_content, gmt_create, gmt_modified) " +
+																													"VALUES " +
+																													"(${feedId},${userId},'${commentContent}','${gmtCreate}','${gmtModified}')";
 	
 	
 }

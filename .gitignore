@@ -1,0 +1,13 @@
+.project
+.settings/
+tasty-common/.classpath
+tasty-common/.project
+tasty-common/.settings/
+tasty-common/target/
+tasty-manager/.classpath
+tasty-manager/.project
+tasty-manager/.settings/
+tasty-manager/target/
+tasty-web/.classpath
+tasty-web/.project
+tasty-web/.settings/
