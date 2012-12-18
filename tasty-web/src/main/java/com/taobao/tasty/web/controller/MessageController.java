@@ -43,7 +43,7 @@ public class MessageController{
 	public void getMsg(HttpServletRequest request, HttpServletResponse response, //
 			@RequestParam( value = "userId", required = true ) String userId,//
 			@RequestParam( value = "tarId", required = true ) String tarId,//
-			@RequestParam( value = "flag", required = true ) String flag ,
+			@RequestParam( value = "flag", required = true ) int flag ,
 			@RequestParam( value = "param", required = false ) String param){
 		Gson gson = new Gson(); 
 		MessageList result = msgManager.getMsg(userId, tarId, flag, param);

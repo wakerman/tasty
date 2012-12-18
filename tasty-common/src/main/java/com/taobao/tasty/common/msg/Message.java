@@ -10,6 +10,8 @@ package com.taobao.tasty.common.msg;
  */
 public class Message{
 
+	private String Id;
+	
 	private String fromUserId;
 	
 	private String toUserId;
@@ -21,6 +23,20 @@ public class Message{
 		this.toUserId = toUserId;
 		this.message = message;
 	}
+
+	
+	
+	public String getId() {
+		return Id;
+	}
+
+
+
+	public void setId(String id) {
+		Id = id;
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see org.zero.realtime.base.Message#getFromUserId()

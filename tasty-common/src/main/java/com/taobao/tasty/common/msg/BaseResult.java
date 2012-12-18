@@ -1,7 +1,12 @@
 package com.taobao.tasty.common.msg;
 
 public class BaseResult {
+	public static final String STATE_OK = "OK";
+	
 	private boolean result;
+	private String state;
+	private int pageNum;
+	private int pageSize;
 	private int errorCode;
 	private String resultNote;
 
@@ -32,4 +37,29 @@ public class BaseResult {
 		return this;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	
 }
