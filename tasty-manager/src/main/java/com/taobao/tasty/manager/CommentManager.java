@@ -76,7 +76,9 @@ public class CommentManager {
 			Map<String, String> values = new HashMap<String, String>();
 			values.put( "feedId", comment.getFeedId()+"" );
 			values.put( "userId", comment.getUserId()+"" );
-			values.put( "commentContent", comment.getCommentContent() );
+			values.put( "target_user_id", comment.getTargetUserId()+"" );
+			values.put( "target_user_name", StringUtil.trimToEmpty( comment.getTargetUserName() ) );
+			values.put( "commentContent", StringUtil.trimToEmpty( comment.getCommentContent() ) );
 			values.put( "gmtCreate", DateUtil.getNowTime( DateFormat.DateTime ) );
 			values.put( "gmtModified", DateUtil.getNowTime( DateFormat.DateTime ) );
 			

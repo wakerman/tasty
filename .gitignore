@@ -11,3 +11,4 @@ tasty-manager/target/
 tasty-web/.classpath
 tasty-web/.project
 tasty-web/.settings/
+tasty-web/target/

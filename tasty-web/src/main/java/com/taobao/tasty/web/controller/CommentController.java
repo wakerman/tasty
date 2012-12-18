@@ -65,18 +65,22 @@ public class CommentController extends BaseController {
 		}
 		ServletUtil.writeToResponse( response, gson.toJson( pageModel, listType ) );
 	}
-	
+
 	@RequestMapping( value = "/comment/add.html" )
 	public void add( HttpServletRequest request, HttpServletResponse response, //
 			@RequestParam( value = "feedId", required = false ) String feedId,//
 			@RequestParam( value = "userId", required = false ) String userId,//
+			@RequestParam( value = "targetUserId", required = false ) String targetUserId,//
+			@RequestParam( value = "targetUserName", required = false ) String targetUserName,//
 			@RequestParam( value = "commentContent", required = false ) String commentContent ) {
 
 		int feedIdInt = 0;
 		int userIdInt = 0;
+		int targetUserIdInt = 0;
 		try {
-			feedIdInt = IntegerUtil.exceptionIfSmallerThan0( feedId );
-			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
+			feedIdInt 			= IntegerUtil.exceptionIfSmallerThan0( feedId );
+			userIdInt 			= IntegerUtil.exceptionIfSmallerThan0( userId );
+			targetUserIdInt	= IntegerUtil.defaultIfError( targetUserId, 0 ); 
 			if( StringUtil.isBlank( commentContent ) ){
 				throw new Exception( "" );
 			}
@@ -84,7 +88,7 @@ public class CommentController extends BaseController {
 			ServletUtil.writeToResponse( response, "Error when add comment!" );
 			e.printStackTrace();
 		}
-		Comment comment = new Comment( feedIdInt, userIdInt, StringUtil.trimToEmpty( commentContent ) );
+		Comment comment = new Comment( feedIdInt, userIdInt, targetUserIdInt, targetUserName, StringUtil.trimToEmpty( commentContent ) );
 		try {
 			if( commentManager.addComment( comment ) ){
 				ServletUtil.writeToResponse( response, "SUCCESS" );

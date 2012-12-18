@@ -20,9 +20,11 @@ public class Comment {
 	public Comment(){
 		
 	}
-	public Comment( int feedId, int userId, String commentContent ){
+	public Comment( int feedId, int userId, int targetUserId, String targetUserName, String commentContent ){
 		this.feedId					= feedId;
 		this.userId					= userId;
+		this.targetUserId			= targetUserId;
+		this.targetUserName	= targetUserName;
 		this.commentContent	= commentContent;
 	}
 	
