@@ -20,12 +20,14 @@ public class Comment {
 	public Comment(){
 		
 	}
-	public Comment( int feedId, int userId, int targetUserId, String targetUserName, String commentContent ){
+	public Comment( int feedId, int userId, int targetUserId, String targetUserName, String commentContent, String gmtCreate, String gmtModified ){
 		this.feedId					= feedId;
 		this.userId					= userId;
 		this.targetUserId			= targetUserId;
 		this.targetUserName	= targetUserName;
 		this.commentContent	= commentContent;
+		this.gmtCreate 				= gmtCreate;
+		this.gmtModified			= gmtModified;
 	}
 	
 	public int getCommentId() {
