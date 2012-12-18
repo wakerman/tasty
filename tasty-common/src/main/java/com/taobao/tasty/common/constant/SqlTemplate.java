@@ -56,9 +56,9 @@ public class SqlTemplate {
 	
 	/** 添加评论 */
 	public static final String ADD_COMMENT_LASTED 				= "INSERT INTO comment " +
-																													"(feed_id, user_id, comment_content, gmt_create, gmt_modified) " +
+																													"(feed_id, user_id, target_user_id, target_user_name, comment_content, gmt_create, gmt_modified) " +
 																													"VALUES " +
-																													"(${feedId},${userId},'${commentContent}','${gmtCreate}','${gmtModified}')";
+																													"(${feedId},${userId},${target_user_id}, '${target_user_name}', '${commentContent}','${gmtCreate}','${gmtModified}')";
 	
 	
 }

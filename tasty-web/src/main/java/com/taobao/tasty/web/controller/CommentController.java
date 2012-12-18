@@ -1,7 +1,9 @@
 package com.taobao.tasty.web.controller;
 
 import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_COMMENT;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +20,9 @@ import com.google.gson.reflect.TypeToken;
 import com.taobao.tasty.common.model.Comment;
 import com.taobao.tasty.common.type.PageModel;
 import com.taobao.tasty.common.type.PageModelState;
-
+import common.toolkit.java.entity.DateFormat;
 import common.toolkit.java.exception.ServiceException;
+import common.toolkit.java.util.DateUtil;
 import common.toolkit.java.util.StringUtil;
 import common.toolkit.java.util.io.ServletUtil;
 import common.toolkit.java.util.number.IntegerUtil;
@@ -65,18 +68,25 @@ public class CommentController extends BaseController {
 		}
 		ServletUtil.writeToResponse( response, gson.toJson( pageModel, listType ) );
 	}
-	
+
 	@RequestMapping( value = "/comment/add.html" )
 	public void add( HttpServletRequest request, HttpServletResponse response, //
 			@RequestParam( value = "feedId", required = false ) String feedId,//
 			@RequestParam( value = "userId", required = false ) String userId,//
+			@RequestParam( value = "targetUserId", required = false ) String targetUserId,//
+			@RequestParam( value = "targetUserName", required = false ) String targetUserName,//
 			@RequestParam( value = "commentContent", required = false ) String commentContent ) {
 
 		int feedIdInt = 0;
 		int userIdInt = 0;
+		int targetUserIdInt = 0;
+		Type listType = new TypeToken<PageModel<Comment>>() {
+		}.getType();
+		Gson gson = new Gson();
 		try {
-			feedIdInt = IntegerUtil.exceptionIfSmallerThan0( feedId );
-			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
+			feedIdInt 			= IntegerUtil.exceptionIfSmallerThan0( feedId );
+			userIdInt 			= IntegerUtil.exceptionIfSmallerThan0( userId );
+			targetUserIdInt	= IntegerUtil.defaultIfError( targetUserId, 0 ); 
 			if( StringUtil.isBlank( commentContent ) ){
 				throw new Exception( "" );
 			}
@@ -84,13 +94,26 @@ public class CommentController extends BaseController {
 			ServletUtil.writeToResponse( response, "Error when add comment!" );
 			e.printStackTrace();
 		}
-		Comment comment = new Comment( feedIdInt, userIdInt, StringUtil.trimToEmpty( commentContent ) );
+		Comment comment = new Comment( feedIdInt, //
+																		userIdInt, //
+																		targetUserIdInt, //
+																		targetUserName, //
+																		StringUtil.trimToEmpty( commentContent ),//
+																		DateUtil.getNowTime( DateFormat.DateTime ),//
+																		DateUtil.getNowTime( DateFormat.DateTime ) );
+		PageModel<Comment> pageModel = new PageModel<Comment>();
 		try {
 			if( commentManager.addComment( comment ) ){
-				ServletUtil.writeToResponse( response, "SUCCESS" );
+				comment.setCommentId( -1 );
+				List<Comment> itemList = new ArrayList<Comment>();
+				itemList.add( comment );
+				pageModel.setItemList( itemList );
+				pageModel.setState( "OK" );
+				ServletUtil.writeToResponse( response, gson.toJson( pageModel, listType ) );
 			}
 		} catch ( ServiceException e ) {
-			ServletUtil.writeToResponse( response, "Error when add comment!" );
+			pageModel.setState( "ERROR" );
+			ServletUtil.writeToResponse( response, gson.toJson( pageModel, listType ) );
 			e.printStackTrace();
 		}
 	}
