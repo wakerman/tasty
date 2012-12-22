@@ -60,5 +60,8 @@ public class SqlTemplate {
 																													"VALUES " +
 																													"(${feedId},${userId},${target_user_id}, '${target_user_name}', '${commentContent}','${gmtCreate}','${gmtModified}')";
 	
+	/** 对一个feed添加一次喜欢次数 */
+	public static final String ADD_LIKE_NUM_OF_FEED				= "UPDATE feed SET like_num = like_num + 1 WHERE feed_id=${feedId}";
+	
 	
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.taobao.tasty.manager.CommentManager;
 import com.taobao.tasty.manager.FeedManager;
+import com.taobao.tasty.manager.LikeManager;
 
 /**
  * Description: Base Controller
@@ -14,6 +15,9 @@ public class BaseController {
 
 	@Autowired
 	protected FeedManager feedManager;
+	
+	@Autowired
+	protected LikeManager likeManager;
 	
 	@Autowired
 	protected CommentManager commentManager;

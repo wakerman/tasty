@@ -73,5 +73,9 @@ public class FeedController extends BaseController {
 		}
 		ServletUtil.writeToResponse( response, gson.toJson( pageModel, listType) );		
 	}
-
+	
+	
+	
+	
+	
 }
