@@ -79,10 +79,9 @@ public class SqlTemplate {
 																													"VALUES " +
 																													"(${feedId},${userId},${target_user_id}, '${target_user_name}', '${commentContent}','${gmtCreate}','${gmtModified}')";
 	//===============以下 喜欢 相关==========================
-	/** 对一个feed添加一次喜欢次数 */
-	public static final String LIKE_ADD_NUM_OF_FEED				= "UPDATE feed SET like_num = like_num + 1 WHERE feed_id=${feedId}";
-	/** 对一个feed减去一次喜欢次数 */
-	public static final String LIKE_CANCEL_NUM_OF_FEED			= "UPDATE feed SET like_num = like_num - 1 WHERE feed_id=${feedId}";
+	/** 对一个feed更新喜欢次数 */
+	public static final String LIKE_UPDATE_NUM_OF_FEED				= "UPDATE feed SET like_num = ${likeNum} WHERE feed_id=${feedId}";
+	
 	/** 添加喜欢记录 */
 	public static final String LIKE_ADD_RECORD 							= "INSERT INTO like_record " +
 																													"(feed_id, user_id, gmt_create, gmt_modified) " +

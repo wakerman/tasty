@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.taobao.tasty.common.constant.SqlTemplate;
 import com.taobao.tasty.common.model.LikeRecord;
+import com.taobao.tasty.common.type.OperType;
 
 import common.toolkit.java.entity.DateFormat;
 import common.toolkit.java.entity.db.DBConnectionResource;
@@ -37,31 +38,34 @@ public class LikeManager {
 			return false;
 		}
 		LikeRecord likeRecord = new LikeRecord(feedId, userId, DateUtil.getNowTime( DateFormat.DateTime ),DateUtil.getNowTime( DateFormat.DateTime ) );
-		if( this.addLikeRecord( likeRecord ) ){
-			return this.addLikeNum( feedId );
+		if( this.addLikeRecord( likeRecord, OperType.LIKE_ADD ) ){
+			return this.updateLikeNum( feedId,"like_num+1" );
+		}
+		return false;
+	}
+	
+	public boolean cancelLike( int feedId, int userId ) throws ServiceException {
+		if ( !IntegerUtil.isBiggerThan0( feedId ) || !IntegerUtil.isBiggerThan0( userId )) {
+			return false;
+		}
+		LikeRecord likeRecord = new LikeRecord(feedId, userId, DateUtil.getNowTime( DateFormat.DateTime ),DateUtil.getNowTime( DateFormat.DateTime ) );
+		if( this.addLikeRecord( likeRecord, OperType.LIKE_CANCEL ) ){
+			return this.updateLikeNum( feedId,"like_num-1" );
 		}
 		return false;
 	}
 
-	/**
-	 * 取消喜欢
-	 * 
-	 * @param feedId
-	 * @param userId
-	 * @return
-	 * @throws ServiceException
-	 */
-	public boolean cancelLike( int feedId, int userId ) throws ServiceException {
+
+	private boolean updateLikeNum( int feedId, String likeNum ) throws ServiceException {
 		if ( !IntegerUtil.isBiggerThan0( feedId ) ) {
 			return false;
 		}
 		String updateSql = "";
 		try {
-
 			Map<String, String> values = new HashMap<String, String>();
 			values.put( "feedId", feedId + "" );
-
-			updateSql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_CANCEL_NUM_OF_FEED, values );
+			values.put( "likeNum", likeNum );
+			updateSql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_UPDATE_NUM_OF_FEED, values );
 			int num = DbcpUtil.executeUpdate( updateSql );
 			if ( 1 == num ) {
 				return true;
@@ -72,57 +76,41 @@ public class LikeManager {
 					e.getCause() );
 		}
 	}
-
-	/**
-	 * 判断用户是否喜欢Feed
-	 * 
-	 * @param likeRecord
-	 * @return
-	 * @throws ServiceException
-	 */
-	private boolean addLikeNum( int feedId ) throws ServiceException {
-		if ( !IntegerUtil.isBiggerThan0( feedId ) ) {
-			return false;
-		}
-		String updateSql = "";
-		try {
-			Map<String, String> values = new HashMap<String, String>();
-			values.put( "feedId", feedId + "" );
-			updateSql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_ADD_NUM_OF_FEED, values );
-			int num = DbcpUtil.executeUpdate( updateSql );
-			if ( 1 == num ) {
-				return true;
-			}
-			return false;
-		} catch ( Throwable e ) {
-			throw new ServiceException( "Error when exec sql: " + updateSql + ", error: " + e.getMessage(),
-					e.getCause() );
-		}
-	}
-	private boolean addLikeRecord( LikeRecord likeRecord ) throws ServiceException {
+	private boolean addLikeRecord( LikeRecord likeRecord, OperType operType ) throws ServiceException {
 		int feedId = likeRecord.getFeedId();
 		int userId = likeRecord.getUserId();
 		if ( !IntegerUtil.isBiggerThan0( feedId ) || !IntegerUtil.isBiggerThan0( userId ) ) {
 			throw new ServiceException( "Invalid feedId or userId." );
 		}
-		String insertSql = "";
-		try {
-			Map<String, String> values = new HashMap<String, String>();
-			values.put( "feedId", feedId + "" );
-			values.put( "userId", userId + "" );
-			values.put( "gmtCreate", likeRecord.getGmtCreate() );
-			values.put( "gmtModified", likeRecord.getGmtModified() );
-
-			insertSql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_ADD_RECORD, values );
-			int num = DbcpUtil.executeInsert( insertSql );
-			if ( 1 == num ) {
-				return true;
+		Map<String, String> values = new HashMap<String, String>();
+		values.put( "feedId", feedId + "" );
+		values.put( "userId", userId + "" );
+		values.put( "gmtCreate", likeRecord.getGmtCreate() );
+		values.put( "gmtModified", likeRecord.getGmtModified() );
+		String sql = "";
+		int num = 0;
+		try{
+			switch ( operType ) {
+			case LIKE_ADD:
+				sql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_ADD_RECORD, values );
+				num = DbcpUtil.executeInsert( sql );
+				break;
+			case LIKE_CANCEL:
+				sql = StringUtil.replacePlaceholder( SqlTemplate.LIKE_DEL_RECORD, values );
+				num = DbcpUtil.executeDelete( sql );
+				break;
+			default:
+				break;
 			}
-			return false;
-		} catch ( Throwable e ) {
-			throw new ServiceException( "Error when insert into db, sql: " + insertSql + ", error: " + e.getMessage(),
+		}catch ( Throwable e ) {
+			throw new ServiceException( "Error when insert into db, sql: " + sql + ", error: " + e.getMessage(),
 					e.getCause() );
 		}
+			if ( 0 == num ) {
+				return false;
+			}else{
+				return true;
+			}
 	}
 	
 	/**
