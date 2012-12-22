@@ -9,6 +9,7 @@ public class LikeRecord {
 	private int likeId;
 	private int feedId;
 	private int userId;
+	private String userName;
 	private String gmtCreate;
 	private String gmtModified;
 	public int getLikeId() {
@@ -40,6 +41,12 @@ public class LikeRecord {
 	}
 	public void setGmtModified( String gmtModified ) {
 		this.gmtModified = gmtModified;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName( String userName ) {
+		this.userName = userName;
 	}
 	
 }

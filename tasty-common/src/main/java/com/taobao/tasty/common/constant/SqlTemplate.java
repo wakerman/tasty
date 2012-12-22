@@ -2,6 +2,7 @@ package com.taobao.tasty.common.constant;
 
 import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_COMMENT;
 import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_FEED;
+import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_DEFAULT;
 /**
  * Sql template
  * @author  nileader / nileader@gmail.com
@@ -91,7 +92,16 @@ public class SqlTemplate {
 	public static final String LIKE_DEL_RECORD 							= "DELETE FROM like_record WHERE feed_id=${feedId} AND user_id=${userId}";
 	/** 判断用户是否喜欢某个feed */
 	public static final String LIKE_CHECK_USER_IS_LIKE				= "SELECT * FROM like_record WHERE feed_id=${feedId} AND user_id=${userId} ";
-	
+	/** 查询最新的喜欢记录 */
+	public static final String LIKE_QUERY_BY_FEED_ID				 	= "SELECT l.like_id," +
+																													"l.feed_id," +
+																													"um.user_id," +
+																													"um.user_name," +
+																													"l.gmt_modified " +
+																										"FROM like_record l,user_model um " + // 
+																										"WHERE l.user_id = um.user_id AND l.feed_id=${feedId} " + //
+																										"ORDER BY l.gmt_modified DESC " + // 
+																										"LIMIT ${startOffSet},"+PAGE_SIZE_DEFAULT;
 	
 	
 	

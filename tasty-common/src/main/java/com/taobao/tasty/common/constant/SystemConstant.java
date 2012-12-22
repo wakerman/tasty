@@ -29,6 +29,8 @@ public class SystemConstant {
 	
 	public static int PAGE_SIZE_OF_COMMENT = 10;
 	
+	public static int PAGE_SIZE_DEFAULT 			= 10;
+	
 	public static String DEFAULT_LOG_TYPE = "ALL";
 
 	public final static String AUTHENTICATION_TYPE = "digest";
