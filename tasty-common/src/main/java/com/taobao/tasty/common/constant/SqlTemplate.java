@@ -5,7 +5,7 @@ import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_FEED;
 /**
  * Sql template
  * @author  nileader / nileader@gmail.com
- * @Date	 2012-3-1
+ * @Date	 2012-12-1
  */
 public class SqlTemplate {
 
@@ -62,6 +62,8 @@ public class SqlTemplate {
 	
 	/** 对一个feed添加一次喜欢次数 */
 	public static final String ADD_LIKE_NUM_OF_FEED				= "UPDATE feed SET like_num = like_num + 1 WHERE feed_id=${feedId}";
+	/** 对一个feed减去一次喜欢次数 */
+	public static final String CANCEL_LIKE_NUM_OF_FEED			= "UPDATE feed SET like_num = like_num - 1 WHERE feed_id=${feedId}";
 	
 	
 }

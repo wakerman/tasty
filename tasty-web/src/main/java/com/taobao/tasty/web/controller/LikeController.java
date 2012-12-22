@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.taobao.tasty.common.model.Comment;
+import com.taobao.tasty.common.type.OperType;
 import com.taobao.tasty.common.type.PageModel;
 import com.taobao.tasty.common.type.PageModelState;
 import common.toolkit.java.entity.DateFormat;
@@ -74,13 +75,15 @@ public class LikeController extends BaseController {
 	// );
 	// }
 
-	@RequestMapping( value = "/like/add.html" )
-	public void add( HttpServletRequest request, HttpServletResponse response, //
+	@RequestMapping( value = "/like/action.html" )
+	public void action( HttpServletRequest request, HttpServletResponse response, //
 			@RequestParam( value = "feedId", required = false ) String feedId,//
-			@RequestParam( value = "userId", required = false ) String userId ) {
+			@RequestParam( value = "userId", required = false ) String userId,//
+			@RequestParam( value = "operType", required = false ) String operType ) {
 
 		int feedIdInt = 0;
 		int userIdInt = 0;
+		operType = StringUtil.trimToEmpty( operType );
 		Type resultType = new TypeToken<Map<String, String>>() {
 		}.getType();
 		Gson gson = new Gson();
@@ -88,8 +91,16 @@ public class LikeController extends BaseController {
 		try {
 			feedIdInt = IntegerUtil.exceptionIfSmallerThan0( feedId );
 //			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
-			if ( !likeManager.addLikeNumOfFeed( feedIdInt ) ) {
-				throw new Exception( "Error when addLikeNumOfFeedComment" );
+			if( OperType.LIKE_ADD.getKey().equalsIgnoreCase( operType ) ){
+				if ( !likeManager.addLikeNumOfFeed( feedIdInt ) ) {
+					throw new Exception( "Error when addLikeNumOfFeedComment" );
+				}
+			}else if( OperType.LIKE_CANCEL.getKey().equalsIgnoreCase( operType ) ){
+				if ( !likeManager.cancelLike( feedIdInt, userIdInt ) ) {
+					throw new Exception( "Error when cancelLike" );
+				}
+			}else{
+				throw new Exception( "Unknow oper type" );
 			}
 			Map<String, String> map = new HashMap<String, String>();
 			map.put( "state", "OK" );
@@ -98,6 +109,7 @@ public class LikeController extends BaseController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put( "state", "ERROR" );
 			ServletUtil.writeToResponse( response, gson.toJson( map, resultType ) );
+			e.printStackTrace();
 		}
 	}
 

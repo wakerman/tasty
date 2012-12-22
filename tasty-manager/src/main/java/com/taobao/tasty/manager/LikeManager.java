@@ -43,6 +43,34 @@ public class LikeManager {
 		}
 	}
 	
+	/**
+	 * 取消喜欢
+	 * @param feedId
+	 * @param userId
+	 * @return
+	 * @throws ServiceException
+	 */
+	public boolean cancelLike( int feedId, int userId ) throws ServiceException {
+		if( !IntegerUtil.isBiggerThan0( feedId ) ){
+			return false;
+		}
+		String updateSql = "";
+		try {
+			
+			Map<String, String> values = new HashMap<String, String>();
+			values.put( "feedId", feedId+"" );
+
+			updateSql = StringUtil.replacePlaceholder( SqlTemplate.CANCEL_LIKE_NUM_OF_FEED, values );
+			int num = DbcpUtil.executeUpdate( updateSql );
+			if ( 1 == num ) {
+				return true;
+			}
+			return false;
+		} catch ( Throwable e ) {
+			throw new ServiceException( "Error when exec sql: " + updateSql + ", error: " + e.getMessage(), e.getCause() );
+		}
+	}
+	
 	
 	
 	
