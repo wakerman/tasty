@@ -84,7 +84,9 @@ public class Initialization extends HttpServlet implements Servlet {
 		DbcpUtil.maxActive = IntegerUtil.defaultIfError( properties.getProperty( "dbcp.maxActive" ), 30 );
 		DbcpUtil.maxIdle = IntegerUtil.defaultIfError( properties.getProperty( "dbcp.maxIdle" ), 10 );
 		DbcpUtil.maxWait = IntegerUtil.defaultIfError( properties.getProperty( "dbcp.maxWait" ), 10000 );
-
+		
+		SystemConstant.BASE_PATH_OF_PIC = StringUtil.defaultIfBlank( properties.getProperty( "basePathOfPic" ), "/root/tasty/pic" );
+		
 		LOG.warn( ">>>>>>Finish load the properties: " + properties );
 
 	}

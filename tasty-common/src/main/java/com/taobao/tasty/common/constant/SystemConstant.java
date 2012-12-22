@@ -10,26 +10,13 @@ import common.toolkit.java.util.StringUtil;
  */
 public class SystemConstant {
 
-	public final static String ZOOKEEPER_MONITOR_PATH = "/YINSHI.MONITOR.ALIVE.CHECK";
-
-	public final static String CONFIGSERVER_MONITOR_DATAID = "com.taobao.configops.monitor";
-
-	public final static String CONFIGSERVER_MONITOR_PUBLISHER_NAME = "Configops Monitor Publisher";
-
-	public final static String CONFIGSERVER_MONITOR_SUBSCRIBER_NAME = "Configops Monitor Subscriber";
-
-	// public final static String alarmWWTarget = "nileader,银时,九任,曼红,玄宵";
-	// public final static String alarmSMSTarget =
-	// "15869027928,13958053485,18658128091,15158827456";
-
-	public static String alarmWangWangList = "";
-	public static String alarmPhoneList = "";
-	
 	public static int PAGE_SIZE_OF_FEED = 10;
 	
 	public static int PAGE_SIZE_OF_COMMENT = 10;
 	
 	public static int PAGE_SIZE_DEFAULT 			= 10;
+	
+	public static String BASE_PATH_OF_PIC			= "/root/tasty/pic";
 	
 	public static String DEFAULT_LOG_TYPE = "ALL";
 
