@@ -98,6 +98,51 @@ public class FeedManager {
 			}
 		}
 	}
+	
+	
+//	public Feed queryFeedByFeedId( int feedId, ) throws Exception {
+//		
+//		if()
+//		Map<String,String> values = new HashMap<String, String>();
+//		values.put( "feedId", feedId + "" );
+//		 
+//		ResultSet rs = null;
+//		DBConnectionResource myResultSet = null;
+//		try {
+//			myResultSet = DbcpUtil.executeQuery( StringUtil.replaceSequenced( StringUtil.replacePlaceholder( SqlTemplate.QUERY_MESSAGE_RECOMMEND, values ) ) );
+//			if ( null == myResultSet ) {
+//				return null;
+//			}
+//			rs = myResultSet.resultSet;
+//			if ( null == rs ) {
+//				return null;
+//			}
+//			while ( rs.next() ) {
+//				Feed feed = convertResultSetToFeed( rs );
+//				feedList.add( feed );
+//			}
+//			return feedList;
+//		} catch ( Throwable e ) {
+//			throw new ServiceException( "Error when query systemSetting, Error: " + e.getMessage(), e );
+//		} finally {
+//			if ( null != myResultSet ) {
+//				DbcpUtil.closeResultSetAndStatement( rs, myResultSet.statement );
+//				DbcpUtil.returnBackConnectionToPool( myResultSet.connection );
+//			}
+//		}
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	private Feed convertResultSetToFeed( ResultSet rs ) {

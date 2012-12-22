@@ -1,11 +1,7 @@
 package com.taobao.tasty.web.controller;
 
-import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_COMMENT;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.taobao.tasty.common.model.Comment;
 import com.taobao.tasty.common.type.OperType;
-import com.taobao.tasty.common.type.PageModel;
-import com.taobao.tasty.common.type.PageModelState;
-import common.toolkit.java.entity.DateFormat;
-import common.toolkit.java.exception.ServiceException;
-import common.toolkit.java.util.DateUtil;
 import common.toolkit.java.util.StringUtil;
 import common.toolkit.java.util.io.ServletUtil;
 import common.toolkit.java.util.number.IntegerUtil;
@@ -90,9 +80,9 @@ public class LikeController extends BaseController {
 
 		try {
 			feedIdInt = IntegerUtil.exceptionIfSmallerThan0( feedId );
-//			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
+			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
 			if( OperType.LIKE_ADD.getKey().equalsIgnoreCase( operType ) ){
-				if ( !likeManager.addLikeNumOfFeed( feedIdInt ) ) {
+				if ( !likeManager.addLike( feedIdInt, userIdInt ) ) {
 					throw new Exception( "Error when addLikeNumOfFeedComment" );
 				}
 			}else if( OperType.LIKE_CANCEL.getKey().equalsIgnoreCase( operType ) ){
@@ -112,5 +102,46 @@ public class LikeController extends BaseController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	@RequestMapping( value = "/like/isLike.html" )
+	public void isLike( HttpServletRequest request, HttpServletResponse response, //
+			@RequestParam( value = "feedId", required = false ) String feedId,//
+			@RequestParam( value = "userId", required = false ) String userId ) {
+
+		int feedIdInt = 0;
+		int userIdInt = 0;
+		Type resultType = new TypeToken<Map<String, String>>() {
+		}.getType();
+		Gson gson = new Gson();
+
+		try {
+			feedIdInt = IntegerUtil.exceptionIfSmallerThan0( feedId );
+			userIdInt = IntegerUtil.exceptionIfSmallerThan0( userId );
+			if( likeManager.isLike( feedIdInt, userIdInt ) ){
+				Map<String, String> map = new HashMap<String, String>();
+				map.put( "state", "OK" );
+				map.put( "isLike", "like" );
+				ServletUtil.writeToResponse( response, gson.toJson( map, resultType ) );
+			}else{
+				Map<String, String> map = new HashMap<String, String>();
+				map.put( "state", "OK" );
+				map.put( "isLike", "unlike" );
+				ServletUtil.writeToResponse( response, gson.toJson( map, resultType ) );
+			}
+		} catch ( Exception e ) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put( "state", "ERROR" );
+			ServletUtil.writeToResponse( response, gson.toJson( map, resultType ) );
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
 
 }
