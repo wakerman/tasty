@@ -13,7 +13,8 @@ public class SqlTemplate {
 	public static final String QUERY_MESSAGE_LASTED 				= "SELECT f.feed_id," +
 																													"f.user_id," +
 																													"um.user_name," +
-																													"f.message_content," +
+																													"f.food_name," +
+																													"f.feed_content," +
 																													"f.gmt_modified," +
 																													"f.location," +
 																													"f.like_num," +
@@ -29,7 +30,8 @@ public class SqlTemplate {
 	public static final String QUERY_FEED_BY_FEED_ID					= "SELECT f.feed_id," +
 																													"f.user_id," +
 																													"um.user_name," +
-																													"f.message_content," +
+																													"f.food_name," +
+																													"f.feed_content," +
 																													"f.gmt_modified," +
 																													"f.location," +
 																													"f.like_num," +
@@ -43,7 +45,8 @@ public class SqlTemplate {
 	public static final String QUERY_MESSAGE_RECOMMEND		= "SELECT f.feed_id," +
 																													"f.user_id," +
 																													"um.user_name," +
-																													"f.message_content," +
+																													"f.food_name," +
+																													"f.feed_content," +
 																													"f.gmt_modified," +
 																													"f.location," +
 																													"f.like_num," +

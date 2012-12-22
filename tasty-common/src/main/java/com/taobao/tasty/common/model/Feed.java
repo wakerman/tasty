@@ -3,6 +3,7 @@ package com.taobao.tasty.common.model;
 /**
  *  Feed实体
  * @author nileader/nileader@gmail.com
+ * @date 2012-12-22
  */
 public class Feed {
 
@@ -23,12 +24,6 @@ public class Feed {
 	}
 	public void setUserName( String userName ) {
 		this.userName = userName;
-	}
-	public String getMessageContent() {
-		return messageContent;
-	}
-	public void setMessageContent( String messageContent ) {
-		this.messageContent = messageContent;
 	}
 	public String getGmtCreate() {
 		return gmtCreate;
@@ -57,6 +52,18 @@ public class Feed {
 	public int getCommentNum() {
 		return commentNum;
 	}
+	public String getFoodName() {
+		return foodName;
+	}
+	public void setFoodName( String foodName ) {
+		this.foodName = foodName;
+	}
+	public String getFeedContent() {
+		return feedContent;
+	}
+	public void setFeedContent( String feedContent ) {
+		this.feedContent = feedContent;
+	}
 	public void setCommentNum( int commentNum ) {
 		this.commentNum = commentNum;
 	}
@@ -84,7 +91,8 @@ public class Feed {
 	private int userId;
 	private String userName;
 	private String userIcon;
-	private String messageContent;
+	private String foodName;
+	private String feedContent;
 	private String gmtCreate;
 	private String gmtModified;
 	private String location;

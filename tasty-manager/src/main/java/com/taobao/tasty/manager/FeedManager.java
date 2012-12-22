@@ -153,7 +153,8 @@ public class FeedManager {
 			feed.setUserId( rs.getInt( "f.user_id" ) );
 			feed.setUserName( rs.getString( "um.user_name" ) );
 			feed.setUserIcon( "/user/icon/" + feed.getUserId() );
-			feed.setMessageContent( rs.getString( "f.message_content" ) );
+			feed.setFoodName( rs.getString( "f.food_name" ) );
+			feed.setFeedContent( rs.getString( "f.feed_content" ) );
 			feed.setGmtModified( rs.getString( "gmt_modified" ) );
 			feed.setLocation( rs.getString( "f.location" ) );
 			feed.setLikeNum( rs.getInt( "f.like_num" ) );
