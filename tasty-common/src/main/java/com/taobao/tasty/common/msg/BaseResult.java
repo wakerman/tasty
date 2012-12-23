@@ -2,6 +2,7 @@ package com.taobao.tasty.common.msg;
 
 public class BaseResult {
 	public static final String STATE_OK = "OK";
+	public static final String STATE_ERROR = "ERROR";
 	
 	private boolean result;
 	private String state;
