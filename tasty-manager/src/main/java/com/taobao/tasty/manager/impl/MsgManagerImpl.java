@@ -131,11 +131,13 @@ public class MsgManagerImpl implements MsgManager {
 	private MessageList getNewMessages(Map<String, String> values) {
 		MessageList msgList = new MessageList();
 		List<Message> list;
+		DBConnectionResource dbResult = null;
+		ResultSet rs = null;
 		try {
-			DBConnectionResource dbResult = DbcpUtil.executeQuery(StringUtil
+			dbResult = DbcpUtil.executeQuery(StringUtil
 					.replaceSequenced(StringUtil.replacePlaceholder(
 							QUERY_MSG_STATUS, values)));
-			ResultSet rs = dbResult.resultSet;
+			rs = dbResult.resultSet;
 
 			if (rs.next()) {
 				values.put("last_id", rs.getString(5));
@@ -160,6 +162,11 @@ public class MsgManagerImpl implements MsgManager {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if ( null != rs ) {
+				DbcpUtil.closeResultSetAndStatement( rs, dbResult.statement );
+				DbcpUtil.returnBackConnectionToPool( dbResult.connection );
+			}
 		}
 		return msgList;
 	}
@@ -167,8 +174,9 @@ public class MsgManagerImpl implements MsgManager {
 	// 获取历史信息，根据最有一次取得的id来获取
 	private MessageList getHistoryMessages(Map<String, String> values) {
 		MessageList msgList = new MessageList();
+		DBConnectionResource dbResult = null;
 		try {
-			DBConnectionResource dbResult = DbcpUtil.executeQuery(StringUtil
+			dbResult = DbcpUtil.executeQuery(StringUtil
 					.replaceSequenced(StringUtil.replacePlaceholder(
 							QUERY_HISTORY_MESSAGE, values)));
 			msgList.setMessageList(conbineMessages(dbResult));
@@ -178,6 +186,11 @@ public class MsgManagerImpl implements MsgManager {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if ( null != dbResult ) {
+				DbcpUtil.closeResultSetAndStatement( dbResult.resultSet, dbResult.statement );
+				DbcpUtil.returnBackConnectionToPool( dbResult.connection );
+			}
 		}
 		return msgList;
 	}
