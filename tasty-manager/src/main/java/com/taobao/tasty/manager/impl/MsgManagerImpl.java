@@ -9,9 +9,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.taobao.tasty.common.constant.SqlTemplate;
 import com.taobao.tasty.common.constant.SystemConstant;
-import com.taobao.tasty.common.msg.BaseResult;
+import com.taobao.tasty.common.model.BaseResult;
 import com.taobao.tasty.common.msg.Message;
 import com.taobao.tasty.common.msg.MessageList;
 import com.taobao.tasty.manager.CommentManager;

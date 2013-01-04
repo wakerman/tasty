@@ -1,6 +1,5 @@
 package com.taobao.tasty.manager;
 
-import com.taobao.tasty.common.msg.BaseResult;
 import com.taobao.tasty.common.msg.MessageList;
 
 

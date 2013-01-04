@@ -13,7 +13,7 @@ public class SqlTemplate {
 	/** 查询最新的Feed */
 	public static final String QUERY_MESSAGE_LASTED 				= "SELECT f.feed_id," +
 																													"f.user_id," +
-																													"um.user_name," +
+																													"um.account," +
 																													"f.food_name," +
 																													"f.feed_content," +
 																													"f.gmt_modified," +
@@ -30,7 +30,7 @@ public class SqlTemplate {
 	/** 查询最新的Feed */
 	public static final String QUERY_FEED_BY_FEED_ID					= "SELECT f.feed_id," +
 																													"f.user_id," +
-																													"um.user_name," +
+																													"um.account," +
 																													"f.food_name," +
 																													"f.feed_content," +
 																													"f.gmt_modified," +
@@ -45,7 +45,7 @@ public class SqlTemplate {
 	/** 查询推荐的Feed */
 	public static final String QUERY_MESSAGE_RECOMMEND		= "SELECT f.feed_id," +
 																													"f.user_id," +
-																													"um.user_name," +
+																													"um.account," +
 																													"f.food_name," +
 																													"f.feed_content," +
 																													"f.gmt_modified," +
@@ -65,7 +65,7 @@ public class SqlTemplate {
 																													"c.user_id, " +
 																													"c.target_user_id, " +
 																													"c.target_user_name, " +
-																													"um.user_name," +
+																													"um.account," +
 																													"c.comment_content," +
 																													"c.gmt_modified " +
 																										"FROM comment c,user_model um " + // 
@@ -95,7 +95,7 @@ public class SqlTemplate {
 	public static final String LIKE_QUERY_BY_FEED_ID				 	= "SELECT l.like_id," +
 																													"l.feed_id," +
 																													"um.user_id," +
-																													"um.user_name," +
+																													"um.account," +
 																													"l.gmt_modified " +
 																										"FROM like_record l,user_model um " + // 
 																										"WHERE l.user_id = um.user_id AND l.feed_id=${feedId} " + //

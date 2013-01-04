@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.taobao.tasty.common.msg.BaseResult;
+import com.taobao.tasty.common.model.BaseResult;
 import com.taobao.tasty.common.msg.MessageList;
 import com.taobao.tasty.manager.MsgManager;
 import common.toolkit.java.util.io.ServletUtil;

@@ -200,7 +200,7 @@ public class LikeManager {
 			likeRecord.setLikeId( rs.getInt( "l.like_id" ) );
 			likeRecord.setFeedId( rs.getInt( "l.feed_id" ) );
 			likeRecord.setUserId( rs.getInt( "um.user_id" ) );
-			likeRecord.setUserName( rs.getString( "um.user_name" ) );
+			likeRecord.setUserName( rs.getString( "um.account" ) );
 			likeRecord.setGmtModified( rs.getString( "l.gmt_modified" ) );
 		} catch ( SQLException e ) {
 			e.printStackTrace();

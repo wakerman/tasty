@@ -8,4 +8,5 @@
 	<bean id="commentManager" class="com.taobao.tasty.manager.CommentManager"  />
 	<bean id="likeManager" class="com.taobao.tasty.manager.LikeManager"  />
 	<bean id="messageManager" class="com.taobao.tasty.manager.impl.MsgManagerImpl" />
+	<bean id="userManager" class="com.taobao.tasty.manager.impl.UserManagerImpl" />
 </beans>

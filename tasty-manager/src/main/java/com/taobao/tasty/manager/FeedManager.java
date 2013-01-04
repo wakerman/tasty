@@ -151,7 +151,7 @@ public class FeedManager {
 		try {
 			feed.setFeedId( rs.getInt( "f.feed_id" ) );
 			feed.setUserId( rs.getInt( "f.user_id" ) );
-			feed.setUserName( rs.getString( "um.user_name" ) );
+			feed.setUserName( rs.getString( "um.account" ) );
 			feed.setUserIcon( "/user/icon/" + feed.getUserId() );
 			feed.setFoodName( rs.getString( "f.food_name" ) );
 			feed.setFeedContent( rs.getString( "f.feed_content" ) );

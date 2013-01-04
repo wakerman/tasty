@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.taobao.tasty.common.msg.BaseResult;
+import com.taobao.tasty.common.model.BaseResult;
 import com.taobao.tasty.common.msg.Message;
 import com.taobao.tasty.common.msg.MessageList;
 

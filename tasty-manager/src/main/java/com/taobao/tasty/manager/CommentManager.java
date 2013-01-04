@@ -116,7 +116,7 @@ public class CommentManager {
 			comment.setUserId( rs.getInt( "c.user_id" ) );
 			comment.setTargetUserId( rs.getInt( "c.target_user_id" ) );
 			comment.setTargetUserName( rs.getString( "c.target_user_name" ) );
-			comment.setUserName( rs.getString( "um.user_name" ) );
+			comment.setUserName( rs.getString( "um.account" ) );
 			comment.setUserIcon( "/user/icon/" + comment.getUserId() );
 			comment.setCommentContent( rs.getString( "c.comment_content" ) );
 			comment.setGmtModified( rs.getString( "gmt_modified" ) );

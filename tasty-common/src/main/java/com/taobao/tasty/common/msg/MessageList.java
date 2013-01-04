@@ -2,6 +2,8 @@ package com.taobao.tasty.common.msg;
 
 import java.util.List;
 
+import com.taobao.tasty.common.model.BaseResult;
+
 public class MessageList extends BaseResult {
 	private List<Message> messageList;
 
