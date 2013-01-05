@@ -132,7 +132,7 @@ public class UserManagerImpl implements UserManager {
 				u.setTags(rs.getString("tags"));
 				u.setCount(rs.getInt("count"));
 				u.setResentLocation(rs.getString("resent_words"));
-				u.setResentLocation(rs.getString("location"));
+				u.setResentLocation(pointToLocation(rs.getString("location")));
 				list.add(u);
 			}
 			
@@ -156,5 +156,11 @@ public class UserManagerImpl implements UserManager {
 		String point = location.replace(',', ' ');
 		point = "PointFromText('POINT(" + point + ")')";
 		return point;
+	}
+	
+	private String pointToLocation(String point) {
+		String location = point.substring(6, point.length() - 1);
+		location = location.replace(' ', ',');
+		return location;
 	}
 }
