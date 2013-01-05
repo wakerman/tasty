@@ -8,5 +8,5 @@ import com.taobao.tasty.common.user.UserList;
 public interface UserManager {
 	public BaseResult syncUserInfo(User user, UserAppend userAppend);
 	
-	public UserList getUserNearby();
+	public UserList getUserNearby(User user);
 }
