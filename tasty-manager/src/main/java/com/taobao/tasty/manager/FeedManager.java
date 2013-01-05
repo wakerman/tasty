@@ -1,6 +1,7 @@
 package com.taobao.tasty.manager;
 
 import static com.taobao.tasty.common.constant.SystemConstant.PAGE_SIZE_OF_FEED;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import com.taobao.tasty.common.constant.SqlTemplate;
 import com.taobao.tasty.common.model.Feed;
 import common.toolkit.java.entity.db.DBConnectionResource;
 import common.toolkit.java.exception.ServiceException;
+import common.toolkit.java.util.ObjectUtil;
 import common.toolkit.java.util.StringUtil;
 import common.toolkit.java.util.db.DbcpUtil;
 
@@ -99,38 +101,32 @@ public class FeedManager {
 		}
 	}
 	
-	
-//	public Feed queryFeedByFeedId( int feedId, ) throws Exception {
-//		
-//		if()
-//		Map<String,String> values = new HashMap<String, String>();
-//		values.put( "feedId", feedId + "" );
-//		 
-//		ResultSet rs = null;
-//		DBConnectionResource myResultSet = null;
-//		try {
-//			myResultSet = DbcpUtil.executeQuery( StringUtil.replaceSequenced( StringUtil.replacePlaceholder( SqlTemplate.QUERY_MESSAGE_RECOMMEND, values ) ) );
-//			if ( null == myResultSet ) {
-//				return null;
-//			}
-//			rs = myResultSet.resultSet;
-//			if ( null == rs ) {
-//				return null;
-//			}
-//			while ( rs.next() ) {
-//				Feed feed = convertResultSetToFeed( rs );
-//				feedList.add( feed );
-//			}
-//			return feedList;
-//		} catch ( Throwable e ) {
-//			throw new ServiceException( "Error when query systemSetting, Error: " + e.getMessage(), e );
-//		} finally {
-//			if ( null != myResultSet ) {
-//				DbcpUtil.closeResultSetAndStatement( rs, myResultSet.statement );
-//				DbcpUtil.returnBackConnectionToPool( myResultSet.connection );
-//			}
-//		}
-//	}
+	public boolean addFeed( Feed feed ) throws ServiceException {
+		String insertSql = "";
+		try {
+			if ( ObjectUtil.isBlank( feed ) || StringUtil.isBlank( feed.getUserId()+"" ) )
+				return false;
+			
+			Map<String, String> values = new HashMap<String, String>();
+			values.put( "userId", feed.getUserId()+"" );
+			values.put( "foodName", StringUtil.trimToEmpty( feed.getFoodName() ) );
+			values.put( "feedContent", StringUtil.trimToEmpty( feed.getFeedContent() ) );
+			values.put( "gmtCreate", feed.getGmtCreate() );
+			values.put( "gmtModified", feed.getGmtModified() );
+			values.put( "location", feed.getLocation() );
+			values.put( "pic", feed.getPic() );
+			
+
+			insertSql = StringUtil.replacePlaceholder( SqlTemplate.INSTER_INTO_FEED, values );
+			int num = DbcpUtil.executeInsert( insertSql );
+			if ( 1 == num ) {
+				return true;
+			}
+			return false;
+		} catch ( Throwable e ) {
+			throw new ServiceException( "Error when insert into db, sql: " + insertSql + ", error: " + e.getMessage(), e.getCause() );
+		}
+	}
 	
 	
 	

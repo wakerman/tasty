@@ -6,6 +6,18 @@ package com.taobao.tasty.common.model;
  * @date 2012-12-22
  */
 public class Feed {
+	
+	public Feed(){};
+	public Feed( long userId, String foodName, String feedContent, String location, String pic, String gmtCreate, String gmtModified ){
+		this.userId 				= Integer.parseInt( userId+"");
+		this.foodName 		= foodName;
+		this.feedContent		= feedContent;
+		this.location				= location;
+		this.pic						= pic;
+		this.gmtCreate			= gmtCreate;
+		this.gmtModified		= gmtModified;
+	}
+	
 
 	public int getFeedId() {
 		return feedId;

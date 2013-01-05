@@ -29,7 +29,9 @@ import com.taobao.tasty.common.type.PageModel;
 import com.taobao.tasty.common.type.PageModelState;
 
 import common.toolkit.java.entity.DateFormat;
+import common.toolkit.java.exception.IllegalParamException;
 import common.toolkit.java.util.DateUtil;
+import common.toolkit.java.util.ObjectUtil;
 import common.toolkit.java.util.StringUtil;
 import common.toolkit.java.util.io.ServletUtil;
 import common.toolkit.java.util.number.IntegerUtil;
@@ -90,7 +92,6 @@ public class FeedController extends BaseController {
 	}
 
 	@RequestMapping( value = "/feed/publish.html", method = RequestMethod.POST )
-	// 将文件上传请求映射到该方法
 	public void publish( HttpServletRequest request, HttpServletResponse response, //
 			@RequestParam( value = "userId", required = false ) String userId,//
 			@RequestParam( value = "foodName", required = false ) String foodName,//
@@ -103,19 +104,28 @@ public class FeedController extends BaseController {
 		Gson gson = new Gson();
 
 		long userIdNum = LongUtil.defaultIfError( userId, 0 );
-		if ( 0 >= userIdNum ) {
+		if ( 0 >= userIdNum || ObjectUtil.isBlank( pic ) ) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put( "state", "ERROR" );
 			ServletUtil.writeToResponse( response, gson.toJson( map, resultType ) );
 			return;
 		}
 
-		String fileName = StringUtil.trimToEmpty( pic.getFileItem().getFieldName() );
-		String filePath = SystemConstant.BASE_PATH_OF_PIC + DateUtil.getNowTime( DateFormat.Date ) + "_"
-				+ System.currentTimeMillis() + "_" + fileName;
-		File file = new File( filePath );
+		String fileType = ".jpg";
+		String monthDir = "";
+		try {
+			monthDir = DateUtil.convertLong2String( System.currentTimeMillis(), "yyyyMM" );
+		} catch ( IllegalParamException e1 ) {
+			e1.printStackTrace();
+		}
+		String filePath = monthDir + "/" + DateUtil.getNowTime( DateFormat.Date ) + "_"
+				+ System.currentTimeMillis() + "_" + fileType;
+		File file = new File( SystemConstant.BASE_PATH_OF_PIC + "/" + filePath );
 		try {
 			pic.getFileItem().write( file );
+			Feed feed = new Feed( userIdNum, foodName, feedContent, location, filePath, DateUtil.getNowTime( DateFormat.DateTime ), DateUtil.getNowTime( DateFormat.DateTime ) );
+			feedManager.addFeed( feed );
+			
 			//TODO 这里开始插入数据库中去~
 		} catch ( Exception e ) {
 			// TODO Auto-generated catch block

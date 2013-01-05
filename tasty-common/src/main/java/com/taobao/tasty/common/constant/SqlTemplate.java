@@ -42,6 +42,30 @@ public class SqlTemplate {
 																										"FROM feed f,user_model um " + // 
 																										"WHERE f.feed_id=${feedId} AND f.user_id = um.user_id ";
 	
+	/** 查询最新的Feed */
+	public static final String INSTER_INTO_FEED						= "INSERT INTO feed (" +
+																																	"user_id, " +
+																																	"food_name, " +
+																																	"feed_content," +
+																																	"gmt_create," +
+																																	"gmt_modified, " +
+																																	"location, " +
+																																	"like_num, " +
+																																	"comment_num, " +
+																																	"pic, " +
+																																	"is_recommend ) " +
+																																	"VALUES (" +
+																																	"${userId}, " +
+																																	"'${foodName}', " +
+																																	"'${feedContent}', " +
+																																	"'${gmtCreate}', " +
+																																	"'${gmtModified}', " +
+																																	"'${location}', " +
+																																	"0, " +
+																																	"0, " +
+																																	"'${pic}', " +
+																																	"0 )";
+	
 	/** 查询推荐的Feed */
 	public static final String QUERY_MESSAGE_RECOMMEND		= "SELECT f.feed_id," +
 																													"f.user_id," +
