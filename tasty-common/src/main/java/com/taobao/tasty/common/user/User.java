@@ -21,6 +21,13 @@ public class User {
 	private String nick;
 	private String icon;
 	
+	private long appendId;
+	private String gender;
+	private String address;
+	private String summary;
+	private String birthday;
+	private String email;
+	
 	public int getId() {
 		return id;
 	}
@@ -99,5 +106,43 @@ public class User {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+	public long getAppendId() {
+		return appendId;
+	}
+	public void setAppendId(long appendId) {
+		this.appendId = appendId;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 	
 }

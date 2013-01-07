@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.taobao.tasty.common.model.BaseResult;
 import com.taobao.tasty.common.user.User;
-import com.taobao.tasty.common.user.UserAppend;
 import com.taobao.tasty.common.user.UserList;
 import com.taobao.tasty.manager.UserManager;
 import common.toolkit.java.util.io.ServletUtil;
@@ -62,7 +61,6 @@ public class userController extends BaseController{
 		
 		if (!con.isSuccess()) {
 		User user = new User();
-		UserAppend append = new UserAppend();
 		
 		user.setAccount(account);
 		user.setAccountType(accountType);
@@ -70,13 +68,13 @@ public class userController extends BaseController{
 		user.setResentLocation(resentLocation);
 		user.setIcon(icon);
 		user.setNick(nick);
+		user.setAddress(address);
+		user.setGender(gender);
+		user.setBirthday(birthday);
+		user.setEmail(email);
+		user.setSummary(summary);
 		
-		append.setAddress(address);
-		append.setGender(gender);
-		append.setBirthday(birthday);
-		append.setEmail(email);
-		append.setSummary(summary);
-		result = userManager.syncUserInfo(user, append);
+		result = userManager.syncUserInfo(user);
 		}
 		Gson gson = new Gson(); 
 		Type type = new TypeToken< BaseResult >() {}.getType();
