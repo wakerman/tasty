@@ -18,6 +18,8 @@ public class User {
 	private String resentLocation;
 	private Date gmtCreate;
 	private Date gmtModfy;
+	private String nick;
+	private String icon;
 	
 	public int getId() {
 		return id;
@@ -84,6 +86,18 @@ public class User {
 	}
 	public void setGmtModfy(Date gmtModfy) {
 		this.gmtModfy = gmtModfy;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	
 }

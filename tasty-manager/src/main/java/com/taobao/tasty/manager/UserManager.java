@@ -9,4 +9,6 @@ public interface UserManager {
 	public BaseResult syncUserInfo(User user, UserAppend userAppend);
 	
 	public UserList getUserNearby(User user);
+
+	public BaseResult confirmUser(String account, int account_type);
 }

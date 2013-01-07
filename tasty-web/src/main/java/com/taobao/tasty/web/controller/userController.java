@@ -9,11 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,9 +30,19 @@ public class userController extends BaseController{
 	
 	private static final Logger LOG = LoggerFactory.getLogger( MessageController.class );
 	
+	@RequestMapping( value = "/user/confirm" ,method=RequestMethod.GET )
+	public void confirmUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "account", required = false) String account,
+			@RequestParam(value = "accountType", required = false) int accountType) {
+		
+		Gson gson = new Gson(); 
+		Type type = new TypeToken<BaseResult>() {}.getType();
+		BaseResult result = userManager.confirmUser(account, accountType);
+		ServletUtil.writeToResponse( response, gson.toJson( result, type) );
+	}
+	
 	@RequestMapping( value = "/user/add" ,method=RequestMethod.GET )
 	public void syncUser(HttpServletRequest request, HttpServletResponse response,
-
 			@RequestParam(value = "account", required = false) String account,
 			@RequestParam(value = "accountType", required = false) int accountType,
 			@RequestParam(value = "tags", required = false) String tags,
@@ -43,10 +51,16 @@ public class userController extends BaseController{
 			@RequestParam(value = "address", required = false) String address,
 			@RequestParam(value = "summary", required = false) String summary,
 			@RequestParam(value = "birthday", required = false) String birthday,
-			@RequestParam(value = "email", required = false) String email
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "nick", required = false) String nick,
+			@RequestParam(value = "icon", required = false) String icon
 			
 			){
+		BaseResult result = new BaseResult();
 		
+		BaseResult con = userManager.confirmUser(account, accountType);
+		
+		if (!con.isSuccess()) {
 		User user = new User();
 		UserAppend append = new UserAppend();
 		
@@ -54,16 +68,18 @@ public class userController extends BaseController{
 		user.setAccountType(accountType);
 		user.setTags(tags);
 		user.setResentLocation(resentLocation);
+		user.setIcon(icon);
+		user.setNick(nick);
 		
 		append.setAddress(address);
 		append.setGender(gender);
 		append.setBirthday(birthday);
 		append.setEmail(email);
 		append.setSummary(summary);
-		
+		result = userManager.syncUserInfo(user, append);
+		}
 		Gson gson = new Gson(); 
 		Type type = new TypeToken< BaseResult >() {}.getType();
-		BaseResult result = userManager.syncUserInfo(user, append);
 		ServletUtil.writeToResponse( response, gson.toJson( result, type) );		
 		
 	}
